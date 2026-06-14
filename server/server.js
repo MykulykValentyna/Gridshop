@@ -9,7 +9,11 @@ const bcrypt = require('bcryptjs');
 
 const app = express();
 const PORT = process.env.PORT || 5000; 
-const SECRET_KEY = process.env.JWT_SECRET || 'default_secret_fallback';
+const SECRET_KEY = process.env.JWT_SECRET;
+if (!SECRET_KEY) {
+  console.error("КРИТИЧНА ПОМИЛКА: Не знайдено JWT_SECRET у файлі .env!");
+  process.exit(1); 
+}
 
 // конфігурація та шляхи
 const DATA_FILE = path.join(__dirname, 'data.json');
